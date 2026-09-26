@@ -4,98 +4,131 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Reiko Laski</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 
 :root{
-  --paper:#ffffff; --ink:#111111; --mut:#666666; --rule:#e4e4e4;
-  --acc:#2f5d76;
-  --serif:"Newsreader", ui-serif, Georgia, serif;
-  --sans:"Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --paper:#ffffff; --ink:#2e2d29; --mut:#53565a; --rule:#979694;
+  --acc:#8c1515; --acc-hover:#175e54; --selection:#C4B7DD; --header:#014240;
+  --sans:"Inter", ui-sans-serif, system-ui, sans-serif;
   --ez:cubic-bezier(.2,.75,.25,1);
 }
-@media(prefers-color-scheme:dark){
-  :root{--paper:#0e0e0e;--ink:#ededed;--mut:#8f8f8f;--rule:#282828;--acc:#8ec0d6}
-}
+/* @media(prefers-color-scheme:dark){
+  :root{--paper:#171614;--ink:#f4f3f0;--mut:#c0c0bf;--rule:#767674;
+        --acc:#8AB8A7;--acc-hover:#F3A8A8;--selection:#734675; --header:#FFE781}
+} */
 *{box-sizing:border-box}
+::selection{background:var(--selection);color:var(--ink)}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);
-     font:300 18px/1.62 var(--serif);font-optical-sizing:auto;
+     font:400 18px/1.62 var(--sans);font-optical-sizing:auto;
      -webkit-font-smoothing:antialiased}
-a{color:inherit}
+a{color:var(--acc);text-decoration:underline;text-decoration-thickness:1px;
+  text-underline-offset:.2em;transition:color .15s ease}
+a:hover,a:focus-visible{color:var(--acc-hover);text-decoration-thickness:2px}
+a:focus-visible{outline:2px solid var(--acc);outline-offset:4px;border-radius:1px}
 
-.shell{display:grid;grid-template-columns:17rem 1fr;gap:4.5rem;
-       max-width:64rem;margin:0 auto;padding:4.5rem 2.5rem 7rem}
+.shell{display:grid;grid-template-columns:17rem minmax(0,1fr);
+       grid-template-areas:"profile content";gap:1rem 4.5rem;
+       max-width:72rem;margin:0 auto;padding:2.5rem 1.5rem 0}
 
 /* ---------- left rail ---------- */
-aside{position:sticky;top:4.5rem;align-self:start}
-.plate{width:224px;height:224px;object-fit:cover;display:block;
-       border:1px solid var(--rule);padding:4px;background:var(--paper);
+aside{grid-area:profile;position:sticky;top:2.5rem;align-self:start}
+.portrait{width:max-content;margin:0}
+.photo-credit{margin-top:2px;font-size:.6875rem;line-height:1.4;
+              color:var(--mut);text-align:right}
+.plate{width:300px;height:300px;object-fit:cover;object-position:center 20%;display:block;
+       background:var(--paper);
        animation:slideIn 1.05s var(--ez) both}
 @keyframes slideIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
 .rise{animation:rise .85s var(--ez) both}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.d1{animation-delay:.16s}.d2{animation-delay:.28s}.d3{animation-delay:.4s}.d4{animation-delay:.52s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.d1{animation-delay:.16s}.d2{animation-delay:.28s}.d3{animation-delay:.4s}
 
-h1{font-size:1.72rem;font-weight:400;letter-spacing:-.005em;margin:1.15rem 0 .55rem;line-height:1.1}
-.role{font-family:var(--sans);font-size:.8rem;color:var(--mut);margin:0 0 .2rem;line-height:1.5}
-.links{font-family:var(--sans);font-size:.8rem;margin:1.15rem 0 0}
-.links a{display:block;text-decoration:none;margin-bottom:.42rem;
-         border-bottom:1px solid transparent;width:fit-content;
-         transition:border-color .28s var(--ez)}
-.links a:hover{border-bottom-color:var(--ink)}
+h1{font-size:1.75rem;font-weight:1000;letter-spacing:0.00em;margin:1.15rem 0 .55rem;line-height:1.1}
+.role{font-family:var(--sans);font-size:.875rem;color:var(--mut);margin:0 0 .2rem;line-height:1.5}
+.links{font-family:var(--sans);font-size:.875rem;margin:1.15rem 0 0}
+.links a{display:flex;align-items:center;min-height:2.25rem;width:fit-content}
+.social-links{display:flex;align-items:center;gap:.25rem;margin:.35rem 0 0}
+.social-links a{display:inline-flex;align-items:center;justify-content:flex-start;
+                width:2.75rem;height:2.75rem;min-width:44px;min-height:44px;
+                border-radius:4px;text-decoration:none}
+.social-links svg{display:block;width:1.25rem;height:1.25rem;fill:currentColor;
+                  transition:transform .12s ease}
+@media(hover:hover){
+  .social-links a:hover svg{transform:scale(1.05)}
+}
 
 /* ---------- right column ---------- */
-section{margin-bottom:3.2rem}
+main{grid-area:content;padding-bottom:4rem}
+section{margin-bottom:3.2rem;scroll-margin-top:2rem}
 section:last-child{margin-bottom:0}
-h2{font-family:var(--sans);font-size:.73rem;font-weight:600;letter-spacing:.14em;
-   text-transform:uppercase;color:var(--acc);
-   margin:0 0 1.1rem;padding-bottom:.5rem;border-bottom:1px solid var(--rule)}
+h2{font-family:var(--sans);font-size:1rem;font-weight:800;letter-spacing:0.00em;
+   text-transform:uppercase;color:var(--header);
+   margin:0 0 1.1rem;padding-bottom:.5rem;border-bottom:2px solid var(--header)}
 .reveal{opacity:0;transform:translateY(18px);
         transition:opacity .78s var(--ez),transform .78s var(--ez)}
 .reveal.on{opacity:1;transform:none}
 
-#about{animation:rise .9s .3s var(--ez) both}
+#about{scroll-margin-top:2.5rem;animation:fadeIn .9s .3s var(--ez) both}
 #about .first{font-size:1.2rem;font-style:italic;line-height:1.45;
               max-width:42ch;margin:0 0 1rem}
 p{margin:0 0 .95rem;max-width:62ch} p:last-child{margin-bottom:0}
 
 /* subheadings */
-h3{font-family:var(--sans);font-size:.67rem;font-weight:600;letter-spacing:.13em;
-   text-transform:uppercase;color:var(--mut);margin:0 0 .95rem}
+h3{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.10em;
+   text-transform:uppercase;color:var(--ink);margin:0 0 .95rem}
 .group{margin-bottom:2.5rem} .group:last-child{margin-bottom:0}
 .work{margin-bottom:1.5rem} .work:last-child{margin-bottom:0}
-.wt{font-size:1.1rem;font-weight:400;margin:0 0 .12rem;line-height:1.36}
-.wt a{text-decoration:none;border-bottom:1px solid var(--rule);
-      transition:border-color .3s var(--ez)}
-.wt a:hover{border-bottom-color:var(--ink)}
-.wm{font-family:var(--sans);font-size:.78rem;color:var(--mut);margin:0;line-height:1.55}
+.wt{font-size:1.125rem;font-weight:500;margin:0 0 .12rem;line-height:1.36}
+.wt a{display:inline-block;min-height:2.25rem;padding:.2rem 0;text-underline-offset:.3em}
+.wm{font-family:var(--sans);font-size:.875rem;color:var(--mut);margin:0;line-height:1.55}
+#research .wm{font-size:.875rem;line-height:1.65}
+#teaching .term-separator{margin-inline:.4em}
+#teaching .course-resources{font-size:.8125rem;max-width:none}
+#teaching .course-resources a{display:inline-flex;align-items:center;min-height:2.25rem;
+                              padding:0;white-space:nowrap;text-underline-offset:.3em}
+#teaching .course-resources > span{margin-inline:.25rem}
 details{margin-top:.45rem}
-summary{cursor:pointer;list-style:none;font-family:var(--sans);font-size:.74rem;
+summary{cursor:pointer;list-style:none;font-family:var(--sans);font-size:.8125rem;
         letter-spacing:.08em;text-transform:uppercase;color:var(--mut);
         transition:color .25s var(--ez)}
 summary:hover{color:var(--ink)}
+summary:focus-visible{outline:2px solid var(--acc-hover);outline-offset:4px;border-radius:1px}
 summary::-webkit-details-marker{display:none}
-summary::before{content:"\203A  "} details[open] summary::before{content:"\2039  "}
-.abs{font-size:.93rem;line-height:1.6;color:var(--mut);
+summary::before{content:"";display:inline-block;width:.4em;height:.4em;
+                margin-right:.65em;vertical-align:.12em;
+                border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+                transform:rotate(-45deg);transition:transform .16s ease}
+details[open] > summary::before{transform:rotate(45deg)}
+.abs{font-size:1rem;line-height:1.6;color:var(--mut);
      margin:.6rem 0 0;padding-left:1.3rem;border-left:1px solid var(--rule);max-width:62ch}
 
 .line{display:flex;justify-content:space-between;gap:2rem;padding:.45rem 0;max-width:62ch}
 .line + .line{border-top:1px dotted var(--rule)}
 .yr{font-family:var(--sans);font-size:.76rem;color:var(--mut);white-space:nowrap}
-.note{font-family:var(--sans);font-size:.76rem;color:var(--mut);
+.note{font-family:var(--sans);font-size:.8125rem;color:var(--mut);
       margin-top:1rem;line-height:1.7;max-width:58ch}
 
+/* Fix the profile to the viewport when there is room to show it in full. */
+@media(min-width:52rem) and (min-height:40rem){
+  aside{position:fixed;left:max(1.5rem,calc((100% - 72rem)/2 + 1.5rem));width:17rem}
+}
 @media(max-width:52rem){
-  .shell{grid-template-columns:1fr;gap:2.6rem;padding:2.6rem 1.4rem 4rem}
-  aside{position:static}
-  .plate{width:180px;height:180px}
-  h1{font-size:1.9rem}
+  .shell{grid-template-columns:1fr;grid-template-areas:"profile" "content";
+         gap:1.5rem;padding:1.75rem 1rem 3rem}
+  main{padding-bottom:0}
+  aside{position:static;width:auto}
+  .plate{width:210px;height:210px}
+  .links a,.wt a,#teaching .course-resources a{min-height:2.75rem}
 }
 @media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .social-links a:hover svg{transform:none}
   .reveal{opacity:1;transform:none} html{scroll-behavior:auto}
 }
 </style>
@@ -104,15 +137,51 @@ summary::before{content:"\203A  "} details[open] summary::before{content:"\2039 
 <div class="shell">
 
 <aside>
-  <img class="plate" src="photo.jpg" alt="Reiko Laski">
+  <figure class="portrait">
+    <img class="plate" src="photo.jpg" alt="Reiko Laski">
+    <figcaption class="photo-credit">Photo by Vanessa Coleman</figcaption>
+  </figure>
   <h1 class="rise d1">Reiko Laski</h1>
   <p class="role rise d2">Ph.D. Candidate in Economics<br>Stanford University</p>
   <p class="role rise d2">On the job market, 2026&ndash;27</p>
   <p class="links rise d3">
     <a href="mailto:rlaski@stanford.edu">Email</a>
     <a href="CV_Laski.pdf">Curriculum Vitae</a>
-    <a href="https://github.com/reikolaski">GitHub</a>
   </p>
+  <!--
+  Social icons: Bootstrap Icons (https://icons.getbootstrap.com/), MIT License.
+  Copyright (c) 2019-2024 The Bootstrap Authors
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+  -->
+  <nav class="social-links rise d3" aria-label="Social profiles">
+    <a href="https://github.com/reikolaski" aria-label="Reiko Laski on GitHub" title="GitHub">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+      </svg>
+    </a>
+    <a href="https://www.linkedin.com/in/reikolaski" aria-label="Reiko Laski on LinkedIn" title="LinkedIn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+      </svg>
+    </a>
+  </nav>
 </aside>
 
 <main>
@@ -121,7 +190,7 @@ summary::before{content:"\203A  "} details[open] summary::before{content:"\2039 
   <h2>About</h2>
   <p>I am a Ph.D. candidate in economics at Stanford University.</p>
   <p>My research interests include macroeconomics, growth, innovation, and firm dynamics.</p>
-  <p>Prior to starting at Stanford, I studied in economics and mathematics at Emory University and worked as a research associate at the Federal Reserve Bank of Richmond.</p>
+  <p>Prior to starting at Stanford, I studied economics and mathematics at Emory University and worked as a research associate at the Federal Reserve Bank of Richmond.</p>
 </section>
 
 <section class="reveal" id="research">
@@ -134,10 +203,10 @@ summary::before{content:"\203A  "} details[open] summary::before{content:"\2039 
     <p class="wm">Job market paper</p>
   </div>
   <div class="work">
-    <p class="wt">Idea Rents and Firm Growth</p>
-    <p class="wm">with Timo Boppart, Pete Klenow and Huiyu Li &middot; NBER Working Paper No. 35594</p>
+    <p class="wt"><a href="drafts/Idea_Rents.pdf">Idea Rents and Firm Growth</a></p>
+    <p class="wm">with Timo Boppart, Pete Klenow and Huiyu Li<br>NBER Working Paper No. 35594</p>
     <details><summary>Abstract</summary>
-      <p class="abs">Which firms drive aggregate productivity growth? We document that firms with high price-earnings ratios tend to see increases in their subsequent earnings relative to sales, which we interpret as rents from ideas (innovation). We construct an endogenous growth model with shocks to firm innovation step-sizes and R&amp;D efficiency and calibrate it to match patterns in the data. The model implies that growth would be much lower, even with the same innovative effort, if firms had the same step sizes. We find that the share of growth coming from smaller listed firms substantially exceeds their sales share.</p>
+      <p class="abs">Which firms drive aggregate productivity growth? We document that firms with high price-earnings ratios tend to see increases in their subsequent earnings relative to sales, which we interpret as rents from ideas (innovation). We construct an endogenous growth model with shocks to firm innovation step-sizes and R&amp;D efficiency and calibrate it to match patterns in the data. The model implies that growth would be much lower, even with the same innovative effort, if firms had the same step sizes. The model can be used to infer expected growth contributions of individual firms (such as members of the Magnificent Seven). We find that the share of growth coming from smaller listed firms substantially exceeds their sales share.</p>
     </details>
   </div>
   </div>
@@ -151,14 +220,14 @@ summary::before{content:"\203A  "} details[open] summary::before{content:"\2039 
   </div>
 
   <div class="group">
-    <h3>Other writing</h3>
+    <h3>Short publications</h3>
   <div class="work">
     <p class="wt"><a href="https://www.richmondfed.org/publications/research/economic_brief/2021/eb_21-11">Why Don&rsquo;t Low-Income Countries Adopt More Productive Technologies?</a></p>
-    <p class="wm">with Nicholas Trachter &middot; Richmond Fed Economic Brief No. 21-11 &middot; 2021</p>
+    <p class="wm">with Nicholas Trachter<br>Richmond Fed Economic Brief No. 21-11 &middot; 2021</p>
   </div>
   <div class="work">
     <p class="wt"><a href="https://www.richmondfed.org/publications/research/coronavirus/economic_impact_covid-19_09-04-20">The Effect of Lockdown Measures on Unemployment</a></p>
-    <p class="wm">with Marios Karabarbounis, James Lee and Nicholas Trachter &middot; Richmond Fed Special Report &middot; 2020</p>
+    <p class="wm">with Marios Karabarbounis, James Lee and Nicholas Trachter<br>Richmond Fed Special Report &middot; 2020</p>
   </div>
   </div>
 </section>
@@ -166,12 +235,23 @@ summary::before{content:"\203A  "} details[open] summary::before{content:"\2039 
 <section class="reveal" id="teaching">
   <h2>Teaching</h2>
   <div class="group">
-    <h3>Stanford University  — Teaching Assistant</h3>
-    <div class="line"><span>Climate Change and Global Inequality</span><span class="yr">2026</span></div>
-    <div class="line"><span>International Finance</span><span class="yr">2025</span></div>
-    <div class="line"><span>International Trade</span><span class="yr">2023&ndash;24</span></div>
+    <div class="work teaching-course">
+      <p class="wt">International Trade</p>
+      <p class="wm">Teaching Assistant, Stanford University <span class="term-separator">&middot;</span> Fall 2023, 2024</p>
+      <p class="course-resources"><a href="evals/F23-ECON-166.pdf" aria-label="Teaching evaluations for International Trade, 2023">Student evaluations (2023)</a><span aria-hidden="true"> | </span><a href="evals/F24-ECON-166.pdf" aria-label="Teaching evaluations for International Trade, 2024">Student evaluations (2024)</a><span aria-hidden="true"> | </span><a href="course_material/F24_ECON166_Week2.pdf" aria-label="Sample section slides for International Trade, 2024">Sample section slides</a></p>
+    </div>
+    <div class="work teaching-course">
+      <p class="wt">International Finance</p>
+      <p class="wm">Teaching Assistant, Stanford University <span class="term-separator">&middot;</span> Winter 2025</p>
+      <p class="course-resources"><a href="evals/W25-ECON-165.pdf" aria-label="Teaching evaluations for International Finance, 2025">Student evaluations</a><span aria-hidden="true"> | </span><a href="course_material/W25_ECON165_Week7.pdf" aria-label="Sample section slides for International Finance, 2025">Sample section slides</a></p>
+    </div>
+    <div class="work teaching-course">
+      <p class="wt">Climate Change and Global Inequality</p>
+      <p class="wm">Teaching Assistant, Stanford University <span class="term-separator">&middot;</span> Winter 2026</p>
+      <p class="course-resources"><a href="evals/W26-ECON-155.pdf" aria-label="Teaching evaluations for Climate Change and Global Inequality, 2026">Student evaluations</a></p>
+    </div>
   </div>
-  <!-- <p class="note">Centennial Teaching Assistant Award, Stanford School of Humanities and Sciences. Outstanding Teaching Assistant Award x3, Stanford Economics.</p> -->
+  <p class="note">Centennial Teaching Assistant Award, Stanford School of Humanities and Sciences. Outstanding Teaching Assistant Award x3, Stanford Economics.</p>
 </section>
 
 </main>
