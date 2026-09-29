@@ -132,6 +132,13 @@ details[open] > summary::before{transform:rotate(45deg)}
   .reveal{opacity:1;transform:none} html{scroll-behavior:auto}
 }
 </style>
+
+<script defer
+        src="https://cloud.umami.is/script.js"
+        data-website-id="4691e2e7-4f21-4cc5-99a8-273c70a85072"
+        data-domains="reikolaski.com,www.reikolaski.com,reikolaski.github.io"
+        data-do-not-track="true"
+        data-exclude-search="true"></script>
 </head>
 <body>
 <div class="shell">
@@ -201,7 +208,7 @@ details[open] > summary::before{transform:rotate(45deg)}
   <div class="work">
     <p class="wt">Sectoral Innovation Complementarities</p>
     <p class="wm">Job market paper</p>
-    <details><summary>Abstract</summary>
+    <details id="jmp-abstract"><summary>Abstract</summary>
       <p class="abs">When downstream firms innovate, they often expand the market for upstream inputs.
         This paper investigates whether these endogenous changes in demand affect innovation incentives and constitute a quantitatively important channel for aggregate economic growth.
         Using Compustat supply-chain links and financial market reactions to patent grants, I find that a one percentage-point increase in a customer's innovation value generates an additional 0.4 percentage point excess return for its suppliers.
@@ -269,6 +276,275 @@ details[open] > summary::before{transform:rotate(45deg)}
 <script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -6% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<!-- ======================================================================
+     ANALYTICS  ·  custom events for the Umami tag in <head>
+     Self-contained. Delete this block and the page behaves exactly as it
+     did before. Nothing here affects layout, nothing is written to the
+     visitor's device, and the page works fine if the tracker is blocked
+     or JavaScript is off.
+
+     Setup, event dictionary, and how to read the numbers: ANALYTICS.md
+     ====================================================================== -->
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- 1. Configuration ---------------- */
+
+  var DEBUG = /[?&]adebug=1/.test(location.search);
+
+  /* ---------------- 2. Exclude your own visits ----------------
+     Load the site once with ?notme=1 in each browser you use, and your
+     visits stop being recorded there. Undo with ?trackme=1.
+
+     `umami.disabled` is Umami's own documented opt-out key. Note that this
+     is the ONLY thing on this page that ever writes to a device, and it
+     only ever runs on a browser where you asked for it — a visitor who
+     never types ?notme=1 has nothing stored, read, or set. */
+
+  try {
+    if (/[?&]notme=1/.test(location.search))   localStorage.setItem("umami.disabled", "1");
+    if (/[?&]trackme=1/.test(location.search)) localStorage.removeItem("umami.disabled");
+    if (localStorage.getItem("umami.disabled")) return;
+  } catch (e) {}
+
+  if (navigator.doNotTrack === "1" && !DEBUG) return;
+
+  var t0 = Date.now();
+  function since() { return Math.round((Date.now() - t0) / 1000); }
+
+  /* ---------------- 3. Event pipe ----------------
+     The tracker tag in <head> is `defer`, so it executes after this block.
+     Anything fired in the meantime is queued and flushed once it arrives.
+     If it never arrives — blocked, offline, CDN down — the queue is dropped
+     and the page carries on as if none of this existed. */
+
+  var queue = [], givenUp = false;
+
+  function sink() {
+    var u = window.umami;
+    return (u && typeof u.track === "function") ? u : null;
+  }
+
+  function emit(name, props) {
+    props = props || {};
+    if (DEBUG) console.log("[analytics]", name, props);
+    var u = sink();
+    if (u) { try { u.track(name, props); } catch (e) {} }
+    else if (!givenUp) { queue.push([name, props]); }
+  }
+
+  function flush() {
+    var u = sink();
+    if (!u) return;
+    for (var i = 0; i < queue.length; i++) {
+      try { u.track(queue[i][0], queue[i][1]); } catch (e) {}
+    }
+    queue.length = 0;
+  }
+
+  /* Deferred scripts have finished executing by the time DOMContentLoaded
+     fires, so this is the first safe moment. The timers are belt and braces. */
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", flush);
+  } else {
+    flush();
+  }
+  setTimeout(flush, 1500);
+  setTimeout(function () { givenUp = true; queue.length = 0; }, 8000);
+
+  /* ---------------- 5. Link clicks ----------------
+     Classified by href, so links added later are tracked automatically. */
+
+  function titleNear(el, scope) {
+    var box = el.closest(scope || ".work");
+    var t = box && box.querySelector(".wt");
+    return t ? t.textContent.trim() : null;
+  }
+  function fileName(href) { return href.split("/").pop().split("?")[0]; }
+
+  document.addEventListener("click", function (ev) {
+    if (ev.defaultPrevented || ev.button > 1) return;
+    var a = ev.target && ev.target.closest && ev.target.closest("a[href]");
+    if (!a) return;
+    var href = a.getAttribute("href") || "";
+    if (!href || href.charAt(0) === "#") return;
+
+    if (/^mailto:/i.test(href)) {
+      emit("email-click", { seconds_on_page: since() });
+
+    } else if (/^CV.*\.pdf$/i.test(href) || /\/CV.*\.pdf$/i.test(href) || /cv\.pdf$/i.test(href)) {
+      emit("cv-download", { file: fileName(href), seconds_on_page: since() });
+
+    } else if (href.indexOf("drafts/") === 0) {
+      emit("paper-download", { paper: titleNear(a), file: fileName(href), seconds_on_page: since() });
+
+    } else if (href.indexOf("evals/") === 0) {
+      emit("teaching-eval-download", { course: titleNear(a, ".teaching-course"), file: fileName(href) });
+
+    } else if (href.indexOf("course_material/") === 0) {
+      emit("teaching-material-download", { course: titleNear(a, ".teaching-course"), file: fileName(href) });
+
+    } else if (/^https?:/i.test(href)) {
+      var host = "";
+      try { host = new URL(href).hostname.replace(/^www\./, ""); } catch (e) {}
+      if (host === location.hostname) return;
+      if (/linkedin\.com$/.test(host) || /github\.com$/.test(host)) {
+        emit("social-click", { network: /linkedin/.test(host) ? "linkedin" : "github" });
+      } else {
+        emit("outbound-click", { host: host, url: href, label: titleNear(a), seconds_on_page: since() });
+      }
+    }
+  }, true);
+
+  /* ---------------- 6. Abstract expand / collapse ----------------
+     abstractsExpanded counts deliberate expands only. If you ever mark an
+     abstract `open` in the markup, that must not be counted as a click —
+     hence the startedOpen handling below. The measure of whether anyone
+     actually read the job market paper abstract is the time it spent open,
+     reported as jmp_abstract_seconds_open in the visit summary. */
+
+  var abstractsExpanded = 0;
+  var jmpOpenMs = 0, jmpOpenSince = null, jmpOpenOnArrival = false;
+
+  Array.prototype.forEach.call(document.querySelectorAll("details"), function (d, i) {
+    var paper = titleNear(d) || ("abstract-" + i);
+    var isJMP = d.id === "jmp-abstract";
+    var startedOpen = d.open;
+    var openedAt = startedOpen ? Date.now() : null;
+    var parseToggleSeen = false;
+
+    if (startedOpen && isJMP) { jmpOpenOnArrival = true; jmpOpenSince = openedAt; }
+
+    d.addEventListener("toggle", function () {
+      if (d.open) {
+        /* Opening <details> from markup or script queues a toggle event.
+           Swallow that one; everything after it is the visitor. */
+        if (startedOpen && !parseToggleSeen) { parseToggleSeen = true; return; }
+        parseToggleSeen = true;
+        openedAt = Date.now();
+        if (isJMP) jmpOpenSince = openedAt;
+        abstractsExpanded++;
+        emit("abstract-expand", { paper: paper, is_job_market_paper: isJMP, seconds_on_page: since() });
+      } else {
+        parseToggleSeen = true;
+        var held = openedAt ? Date.now() - openedAt : 0;
+        if (isJMP && jmpOpenSince) { jmpOpenMs += Date.now() - jmpOpenSince; jmpOpenSince = null; }
+        openedAt = null;
+        emit("abstract-collapse", {
+          paper: paper,
+          is_job_market_paper: isJMP,
+          seconds_open: Math.round(held / 1000),
+          opened_on_arrival: startedOpen
+        });
+      }
+    });
+  });
+
+  /* ---------------- 7. Scroll depth ---------------- */
+
+  var maxScroll = 0, milestones = [25, 50, 75, 100], hit = {}, pending = false;
+
+  function scrollPct() {
+    var doc = document.documentElement;
+    var range = doc.scrollHeight - window.innerHeight;
+    if (range <= 0) return 100;
+    var y = window.pageYOffset || doc.scrollTop || 0;
+    return Math.max(0, Math.min(100, Math.round((y / range) * 100)));
+  }
+  function readScroll() {
+    pending = false;
+    var pct = scrollPct();
+    if (pct > maxScroll) maxScroll = pct;
+    for (var i = 0; i < milestones.length; i++) {
+      var m = milestones[i];
+      if (maxScroll >= m && !hit[m]) {
+        hit[m] = true;
+        emit("scroll-depth", { depth: m, seconds_on_page: since() });
+      }
+    }
+  }
+  addEventListener("scroll", function () {
+    if (!pending) { pending = true; requestAnimationFrame(readScroll); }
+  }, { passive: true });
+  readScroll();
+
+  /* ---------------- 8. Which sections actually get read ---------------- */
+
+  var sectionsSeen = [];
+  if ("IntersectionObserver" in window) {
+    var sectionObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        sectionObserver.unobserve(e.target);
+        var id = e.target.id || "unnamed";
+        sectionsSeen.push(id);
+        emit("section-view", { section: id, seconds_on_page: since() });
+      });
+    }, { threshold: 0.35 });
+    Array.prototype.forEach.call(document.querySelectorAll("main section[id]"), function (el) {
+      sectionObserver.observe(el);
+    });
+  }
+
+  /* ---------------- 9. Engaged time + one summary event ----------------
+     One record per visit. This is the event to build reports on: it holds
+     the whole shape of a visit in one place, so you can ask things like
+     "of the people who read the JMP abstract, how many took the CV?" */
+
+  var engagedMs = 0, lastTick = Date.now(), summarySent = false;
+
+  function accrue() {
+    var now = Date.now();
+    if (document.visibilityState === "visible") engagedMs += now - lastTick;
+    lastTick = now;
+  }
+  setInterval(accrue, 1000);
+
+  var downloads = { cv: 0, papers: 0, teaching: 0 };
+  document.addEventListener("click", function (ev) {
+    var a = ev.target && ev.target.closest && ev.target.closest("a[href]");
+    if (!a) return;
+    var h = a.getAttribute("href") || "";
+    if (/cv.*\.pdf$/i.test(h)) downloads.cv++;
+    else if (h.indexOf("drafts/") === 0) downloads.papers++;
+    else if (h.indexOf("evals/") === 0 || h.indexOf("course_material/") === 0) downloads.teaching++;
+  }, true);
+
+  function sendSummary() {
+    if (summarySent) return;
+    summarySent = true;
+    accrue();
+    if (jmpOpenSince) { jmpOpenMs += Date.now() - jmpOpenSince; jmpOpenSince = null; }
+    emit("visit-summary", {
+      engaged_seconds: Math.round(engagedMs / 1000),
+      total_seconds: since(),
+      max_scroll_pct: maxScroll,
+      reached_bottom: maxScroll >= 90,
+      sections_seen: sectionsSeen.join(","),   // Umami stringifies arrays anyway
+      section_count: sectionsSeen.length,
+      saw_research: sectionsSeen.indexOf("research") > -1,
+      saw_teaching: sectionsSeen.indexOf("teaching") > -1,
+      abstracts_expanded: abstractsExpanded,
+      jmp_abstract_open_on_arrival: jmpOpenOnArrival,
+      jmp_abstract_seconds_open: Math.round(jmpOpenMs / 1000),
+      cv_downloaded: downloads.cv > 0,
+      papers_downloaded: downloads.papers,
+      teaching_files_downloaded: downloads.teaching,
+      viewport_width: window.innerWidth
+    });
+  }
+
+  document.addEventListener("visibilitychange", function () {
+    accrue();
+    if (document.visibilityState === "hidden") sendSummary();
+  });
+  addEventListener("pagehide", sendSummary);
+
+  if (DEBUG) console.log("[analytics] debug mode; tracker " + (sink() ? "ready" : "still loading"));
+})();
 </script>
 </body>
 </html>
