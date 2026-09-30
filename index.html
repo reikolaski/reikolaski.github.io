@@ -52,7 +52,21 @@ aside{grid-area:profile;position:sticky;top:2.5rem;align-self:start}
 h1{font-size:1.75rem;font-weight:1000;letter-spacing:0.00em;margin:1.15rem 0 .55rem;line-height:1.1}
 .role{font-family:var(--sans);font-size:.875rem;color:var(--mut);margin:0 0 .2rem;line-height:1.5}
 .links{font-family:var(--sans);font-size:.875rem;margin:1.15rem 0 0}
-.links a{display:flex;align-items:center;min-height:2.25rem;width:fit-content}
+.links a{display:flex;align-items:center;gap:.5rem;min-height:2.25rem;width:fit-content}
+.link-icon{position:relative;display:inline-block;flex:0 0 1rem;width:1rem;height:1rem}
+.link-icon svg{position:absolute;inset:0;display:block;width:100%;height:100%;fill:currentColor}
+.envelope-closed{opacity:1;transition:opacity .18s ease}
+/* Align the open drawing's bottom at y=16 with the closed drawing's y=14. */
+.envelope-open{opacity:0;transform:translateY(-12.5%);transition:opacity .18s ease}
+.cv-icon svg{transform-origin:50% 85%;transition:transform .18s var(--ez)}
+.links a:focus-visible .envelope-closed{opacity:0}
+.links a:focus-visible .envelope-open{opacity:1}
+.links a:focus-visible .cv-icon svg{transform:rotate(-5deg)}
+@media(hover:hover){
+  .links a:hover .envelope-closed{opacity:0}
+  .links a:hover .envelope-open{opacity:1}
+  .links a:hover .cv-icon svg{transform:rotate(-5deg)}
+}
 .social-links{display:flex;align-items:center;gap:.25rem;margin:.35rem 0 0}
 .social-links a{display:inline-flex;align-items:center;justify-content:flex-start;
                 width:2.75rem;height:2.75rem;min-width:44px;min-height:44px;
@@ -60,7 +74,7 @@ h1{font-size:1.75rem;font-weight:1000;letter-spacing:0.00em;margin:1.15rem 0 .55
 .social-links svg{display:block;width:1.25rem;height:1.25rem;fill:currentColor;
                   transition:transform .12s ease}
 @media(hover:hover){
-  .social-links a:hover svg{transform:scale(1.05)}
+  .social-links a:hover svg{transform:scale(1.08)}
 }
 
 /* ---------- right column ---------- */
@@ -129,6 +143,7 @@ details[open] > summary::before{transform:rotate(45deg)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .social-links a:hover svg{transform:none}
+  .links a:hover .cv-icon svg,.links a:focus-visible .cv-icon svg{transform:none}
   .reveal{opacity:1;transform:none} html{scroll-behavior:auto}
 }
 </style>
@@ -152,11 +167,29 @@ details[open] > summary::before{transform:rotate(45deg)}
   <p class="role rise d2">Ph.D. Candidate in Economics<br>Stanford University</p>
   <p class="role rise d2">On the job market, 2026&ndash;27</p>
   <p class="links rise d3">
-    <a href="mailto:rlaski@stanford.edu">Email</a>
-    <a href="CV_Laski.pdf">Curriculum Vitae</a>
+    <a href="mailto:rlaski@stanford.edu" title="Let’s chat!">
+      <span class="link-icon" aria-hidden="true">
+        <svg class="envelope-closed" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+        </svg>
+        <svg class="envelope-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false">
+          <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
+        </svg>
+      </span>
+      <span>Email</span>
+    </a>
+    <a href="CV_Laski.pdf" title="Let’s get into the details!">
+      <span class="link-icon cv-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" focusable="false">
+          <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+          <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+        </svg>
+      </span>
+      <span>Curriculum Vitae</span>
+    </a>
   </p>
   <!--
-  Social icons: Bootstrap Icons (https://icons.getbootstrap.com/), MIT License.
+  Link and social icons: Bootstrap Icons (https://icons.getbootstrap.com/), MIT License.
   Copyright (c) 2019-2024 The Bootstrap Authors
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -178,12 +211,12 @@ details[open] > summary::before{transform:rotate(45deg)}
   THE SOFTWARE.
   -->
   <nav class="social-links rise d3" aria-label="Social profiles">
-    <a href="https://github.com/reikolaski" aria-label="Reiko Laski on GitHub" title="GitHub">
+    <a href="https://github.com/reikolaski" aria-label="Reiko Laski on GitHub" title="Let’s code!">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
       </svg>
     </a>
-    <a href="https://www.linkedin.com/in/reikolaski" aria-label="Reiko Laski on LinkedIn" title="LinkedIn">
+    <a href="https://www.linkedin.com/in/reikolaski" aria-label="Reiko Laski on LinkedIn" title="Let’s connect!">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
         <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
       </svg>
@@ -274,19 +307,15 @@ details[open] > summary::before{transform:rotate(45deg)}
 </main>
 </div>
 <script>
+console.log("Additional personality available upon request.");
+function personality() {
+  return "Request granted 👻";
+}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -6% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
 </script>
 
-<!-- ======================================================================
-     ANALYTICS  ·  custom events for the Umami tag in <head>
-     Self-contained. Delete this block and the page behaves exactly as it
-     did before. Nothing here affects layout, nothing is written to the
-     visitor's device, and the page works fine if the tracker is blocked
-     or JavaScript is off.
-
-     Setup, event dictionary, and how to read the numbers: ANALYTICS.md
-     ====================================================================== -->
 <script>
 (function () {
   "use strict";
