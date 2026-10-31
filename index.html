@@ -91,7 +91,7 @@ h2{font-family:var(--sans);font-size:1rem;font-weight:800;letter-spacing:0.00em;
 #about{scroll-margin-top:2.5rem;animation:fadeIn .9s .3s var(--ez) both}
 #about .first{font-size:1.2rem;font-style:italic;line-height:1.45;
               max-width:42ch;margin:0 0 1rem}
-p{margin:0 0 .95rem;max-width:62ch} p:last-child{margin-bottom:0}
+p{margin:0 0 .95rem} p:last-child{margin-bottom:0}
 
 /* subheadings */
 h3{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.10em;
@@ -126,7 +126,7 @@ details[open] > summary::before{transform:rotate(45deg)}
 .line + .line{border-top:1px dotted var(--rule)}
 .yr{font-family:var(--sans);font-size:.76rem;color:var(--mut);white-space:nowrap}
 .note{font-family:var(--sans);font-size:.8125rem;color:var(--mut);
-      margin-top:1rem;line-height:1.7;max-width:58ch}
+      margin-top:1rem;line-height:1.7}
 
 /* Fix the profile to the viewport when there is room to show it in full. */
 @media(min-width:52rem) and (min-height:40rem){
@@ -228,8 +228,8 @@ details[open] > summary::before{transform:rotate(45deg)}
 
 <section id="about">
   <h2>About</h2>
-  <p>I am a Ph.D. candidate in economics at Stanford University.</p>
-  <p>My research interests include macroeconomics, growth, innovation, and firm dynamics.</p>
+  <p>I am a Ph.D. candidate in economics at Stanford University, on the 2026&ndash;27 job market and seeking non-academic opportunities.</p>
+  <p>My research interests include macroeconomics, growth, innovation, and firm&nbsp;dynamics. My work combines empirical analysis and economic theory to study how firm-level technological change contributes to aggregate productivity growth.</p>
   <p>Prior to starting at Stanford, I studied economics and mathematics at Emory University and worked as a research associate at the Federal Reserve Bank of Richmond.</p>
 </section>
 
@@ -242,19 +242,20 @@ details[open] > summary::before{transform:rotate(45deg)}
     <p class="wt">Sectoral Innovation Complementarities</p>
     <p class="wm">Job market paper</p>
     <details id="jmp-abstract"><summary>Abstract</summary>
-      <p class="abs">When downstream firms innovate, they often expand the market for upstream inputs.
-        This paper investigates whether these endogenous changes in demand affect innovation incentives and constitute a quantitatively important channel for aggregate economic growth.
-        Using Compustat supply-chain links and financial market reactions to patent grants, I find that a one percentage-point increase in a customer's innovation value generates an additional 0.4 percentage point excess return for its suppliers.
-        These supplier valuation gains predict subsequent increases in both supplier sales and patenting.
-        To understand the role of supply chains in transmitting innovation incentives across firms, I develop and calibrate a multisector endogenous growth model of step-by-step innovation featuring upstream suppliers and downstream customers.
-        Because standard R&D policy designs abstract from these vertical linkages, they fail to internalize the full social return of an innovation.
-        Solving the social planner's problem reveals that a targeted R&D subsidy schedule accounting for induced supply-chain research raises aggregate growth relative to a uniform subsidy.
+      <p class="abs">Technological advances in one industry can strengthen incentives for firms in other industries to innovate.
+        I study whether downstream innovation increases demand for upstream inputs and makes developing better inputs more profitable.
+        Using Compustat supply-chain links and financial market reactions to patent grants, I measure changes in suppliers' market value associated with customer innovation.
+        Each additional 1% of a customer's market value created by its own innovation is associated with an additional 0.33% increase in its supplier's market value.
+        These supplier valuation gains predict subsequent increases in sales and patenting, consistent with customer advances expanding demand for inputs and encouraging further innovation by suppliers.
+        I develop and calibrate a multisector endogenous growth model to study how interactions between customer and supplier innovation shape the gap between private and social returns to research.
+        The empirical relationship between customer and supplier valuation gains helps distinguish models with different implications for the allocation of R&amp;D support.
+        In the calibrated model, targeting R&amp;D subsidies toward suppliers raises annual growth by an additional 8 basis points relative to a uniform subsidy at the same fiscal cost.
     </p>
     </details>
   </div>
   <div class="work">
     <p class="wt"><a href="drafts/Idea_Rents.pdf">Idea Rents and Firm Growth</a></p>
-    <p class="wm">with Timo Boppart, Pete Klenow and Huiyu Li<br>NBER Working Paper No. 35594</p>
+    <p class="wm">with Timo Boppart, Pete Klenow, and Huiyu Li<br>NBER Working Paper No. 35594</p>
     <details><summary>Abstract</summary>
       <p class="abs">Which firms drive aggregate productivity growth? We document that firms with high price-earnings ratios tend to see increases in their subsequent earnings relative to sales, which we interpret as rents from ideas (innovation). We construct an endogenous growth model with shocks to firm innovation step-sizes and R&amp;D efficiency and calibrate it to match patterns in the data. The model implies that growth would be much lower, even with the same innovative effort, if firms had the same step sizes. The model can be used to infer expected growth contributions of individual firms (such as members of the Magnificent Seven). We find that the share of growth coming from smaller listed firms substantially exceeds their sales share.</p>
     </details>
@@ -263,6 +264,10 @@ details[open] > summary::before{transform:rotate(45deg)}
 
   <div class="group">
     <h3>Work in progress</h3>
+  <div class="work">
+    <p class="wt">The Market's Expectation of AI-Driven Growth</p>
+    <p class="wm">with Timo Boppart, Pete Klenow, and Huiyu Li</p>
+  </div>
   <div class="work">
     <p class="wt">The Growth Implications of Heterogeneous Firm-to-Firm Knowledge Spillovers</p>
     <p class="wm">with Emmanuella Kyei Manu</p>
@@ -301,7 +306,8 @@ details[open] > summary::before{transform:rotate(45deg)}
       <p class="course-resources"><a href="evals/W26-ECON-155.pdf" aria-label="Teaching evaluations for Climate Change and Global Inequality, 2026">Student evaluations</a></p>
     </div>
   </div>
-  <p class="note">Centennial Teaching Assistant Award, Stanford School of Humanities and Sciences. Outstanding Teaching Assistant Award x3, Stanford Economics.</p>
+  <p class="note">Centennial Teaching Assistant Award, Stanford School of Humanities and Sciences.<br>
+    Outstanding Teaching Assistant Award&nbsp;&times;3, Stanford Economics.</p>
 </section>
 
 </main>
